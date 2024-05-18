@@ -1,0 +1,64 @@
+
+#LOOP PROMEDIO
+
+cars <- data.frame(mtcars)
+for (i in seq_len(ncol(cars))) {
+    current_ncol <- cars[,i]
+}
+promedio_cars <- colMeans(cars)
+
+print(promedio_cars)
+
+
+#HEATMAP
+
+data <- as.matrix(mtcars)
+heatmap(data)
+heatmap(data, scale="column", col = cm.colors(256))
+
+
+
+#PCA
+
+#FORMA 1
+
+install.packages("tidyverse")
+library(tidyverse)
+PCA_cars<-prcomp(mtcars, scale=TRUE)
+PCA_cars
+
+#FORMA 2
+
+
+library(stats)
+pca_mtcars <- prcomp(mtcars, scale. = TRUE)
+summary(pca_mtcars)
+cargas <- pca_mtcars$rotation
+coordenadas <- pca_mtcars$x
+print("Cargas de los componentes principales:")
+print(cargas)
+print("Coordenadas de los componentes principales:")
+print(coordenadas)
+
+
+#CORRELACIONES
+
+a_num <- function(df, columnas) {
+   for (col in columnas) {
+       df[[col]] <- as.numeric(df[[col]])
+   }
+    return(df)
+}
+
+mtcars <- a_num(df = mtcars, columnas = c("hp", "wt", "am"))
+CORmtcars <- a_num(df = mtcars, columnas = c("hp", "wt", "am"))
+COR <- cor(mtcars[, c("hp", "wt", "am")])
+#install.packages('corrplot')
+corrplot(COR, method = "circle", type = "lower", tl.col = "black", tl.srt = 45)
+
+
+#ANOVA
+
+modelo_anova <- aov(mpg ~ cyl, data = mtcars)
+summary(modelo_anova)
+
